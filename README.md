@@ -10,7 +10,18 @@ In the ``src/`` directory you'll find two versions. Each correspond to a video o
 # Video's
 
 Part 1 (click to watch):
-[![Video thumbnail](https://img.youtube.com/vi/zVqczFZr124/maxresdefault.jpg)](https://www.youtube.com/watch?v=zVqczFZr124)
+
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=zVqczFZr124" target="_new">
+    <img src="https://img.youtube.com/vi/zVqczFZr124/maxresdefault.jpg">
+  </a>
+</p>
+
 
 Part 2 (click to watch):
-[![Video thumbnail](https://img.youtube.com/vi/HneatE69814/maxresdefault.jpg)](https://www.youtube.com/watch?v=HneatE69814)
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=HneatE69814" target="_new">
+    <img src="https://img.youtube.com/vi/HneatE69814/maxresdefault.jpg">
+  </a>
+</p>
