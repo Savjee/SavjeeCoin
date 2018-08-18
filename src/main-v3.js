@@ -58,6 +58,9 @@ class Blockchain{
 
         console.log('Block successfully mined!');
         this.chain.push(block);
+        
+        // clear pending transactions
+        this.pendingTransactions = [];
 
     }
 
