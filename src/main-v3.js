@@ -49,15 +49,19 @@ class Blockchain{
     }
 
     minePendingTransactions(miningRewardAddress){
+
+        // coinbase transaction
+        this.pendingTransactions.unshift(new Transaction(null, miningRewardAddress, this.miningReward));
+
         let block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
         block.mineBlock(this.difficulty);
 
         console.log('Block successfully mined!');
         this.chain.push(block);
+        
+        // clear pending transactions
+        this.pendingTransactions = [];
 
-        this.pendingTransactions = [
-            new Transaction(null, miningRewardAddress, this.miningReward)
-        ];
     }
 
     createTransaction(transaction){
