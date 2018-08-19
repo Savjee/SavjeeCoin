@@ -35,17 +35,13 @@ class Blockchain{
     }
 
     isChainValid() {
-        for (let i = 1; i < this.chain.length; i++){
-            const currentBlock = this.chain[i];
-            const previousBlock = this.chain[i - 1];
+        for(let i=0; i<this.chain.length; i++){
 
-            if (currentBlock.hash !== currentBlock.calculateHash()) {
+            if(this.chain[i].hash !== this.chain[i].calculateHash())
                 return false;
-            }
 
-            if (currentBlock.previousHash !== previousBlock.hash) {
+            if(i > 0 && this.chain[i].previousHash !== this.chain[i-1].hash)
                 return false;
-            }
         }
 
         return true;
