@@ -1,0 +1,24 @@
+{
+    "name": "savjeecoin",
+    "version": "3.0.0",
+    "description": "JavaScript example of a Blockchain",
+    "main": "version-3/main.js",
+    "scripts": {
+        "start": "echo wich version? \"v1, v2, v3\" && echo start it with \"npm run v1\" (replace v1 with the version you want)",
+        "v1": "node version-1/main.js",
+        "v2": "node version-2/main.js",
+        "v3": "node version-3/main.js"
+    },
+    "author": {
+        "name": "Savjee",
+        "url": "https://github.com/SavjeeTutorials/SavjeeCoin",
+        "description": "Original from Savjee"
+    },
+    "contributors": [{
+        "name": "hasezoey",
+        "url": "https://github.com/hasezoey/SavjeeCoin/",
+        "description": "froked & changed by hasezoey"
+    }],
+    "license": "MIT",
+    "dependencies": {}
+}

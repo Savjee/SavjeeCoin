@@ -1,2 +1,7 @@
-node_modules
-.vscode
+# Folders
+**/node_modules/
+.vscode/
+**/chain/
+
+# Files
+**/package-lock.json
