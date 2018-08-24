@@ -1,0 +1,21 @@
+{
+    "name": "savjeecoin-video-3",
+    "version": "3.0.0",
+    "description": "JavaScript example of a Blockchain",
+    "main": "main.js",
+    "scripts": {
+        "start": "node main.js"
+    },
+    "author": {
+        "name": "Savjee",
+        "url": "https://github.com/SavjeeTutorials/SavjeeCoin",
+        "description": "Original from Savjee"
+    },
+    "contributors": [{
+        "name": "hasezoey",
+        "url": "https://github.com/hasezoey/SavjeeCoin/",
+        "description": "froked & changed by hasezoey"
+    }],
+    "license": "MIT",
+    "dependencies": {}
+}
