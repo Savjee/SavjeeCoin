@@ -13,8 +13,9 @@ class Block {
         this.previousHash = previousHash;
         this.timestamp = timestamp;
         this.transactions = transactions;
-        this.hash = this.calculateHash();
         this.nonce = 0;
+        this.hash = this.calculateHash();
+        
     }
 
     calculateHash() {
