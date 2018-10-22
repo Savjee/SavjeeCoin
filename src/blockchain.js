@@ -122,6 +122,12 @@ class Blockchain{
     }
 
     addTransaction(transaction){
+
+        // Prevent people from adding a fake mining reward transaction
+        if(!transaction.fromAddress || !transaction.toAddress){
+            throw new Error('Transaction must include from and to address');
+        }
+
         // Verify the transactiion
         if(!transaction.isValid()){
             throw new Error('Cannot add invalid transaction to chain');
