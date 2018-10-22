@@ -1,34 +1,24 @@
 # SavjeeCoin
 
-A very simple blockchain implementation to demonstrate the basics of blockchains. This is by no means a complete implementation and it is by no means secure!
+A very simple blockchain implementation in Javascript.
 
-In the ``src/`` directory you'll find two versions. Each correspond to a video on YouTube:
+For education purposes only. This is by no means a complete implementation and it is by no means secure!
 
-* v1: First implementation ([video](https://youtu.be/zVqczFZr124))
-* v2: Added proof-of-work mechanism ([video](https://youtu.be/HneatE69814))
-* v3: Added multiple transactions & mining rewards ([video](https://youtu.be/fRV6cGXVQ4I))
+# Features
 
-# Video's
+* Simple proof-of-work algorithm
+* Generate wallet (private/public key)
+* Sign transactions
+* Verify blockchain (to prevent tampering)
 
-Part 1 (click to watch):
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=zVqczFZr124" target="_new">
-    <img src="https://img.youtube.com/vi/zVqczFZr124/maxresdefault.jpg">
-  </a>
-</p>
+# Videos
+This source code comes from [my video series on YouTube](https://www.youtube.com/watch?v=zVqczFZr124&list=PLzvRQMJ9HDiTqZmbtFisdXFxul5k0F-Q4). You can check them here:
 
-
-Part 2 (click to watch):
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=HneatE69814" target="_new">
-    <img src="https://img.youtube.com/vi/HneatE69814/maxresdefault.jpg">
-  </a>
-</p>
+| Video 1: Simple implementation | Video 2: Adding Proof-of-work |
+:-------------------------:|:-------------------------:
+[![](https://img.youtube.com/vi/zVqczFZr124/maxresdefault.jpg)](https://www.youtube.com/watch?v=zVqczFZr124) | [![](https://img.youtube.com/vi/HneatE69814/maxresdefault.jpg)](https://www.youtube.com/watch?v=HneatE69814)
 
 
-Part 3 (click to watch):
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=fRV6cGXVQ4I" target="_new">
-    <img src="https://img.youtube.com/vi/fRV6cGXVQ4I/maxresdefault.jpg">
-  </a>
-</p>
+| Video 3: Mining rewards & transactions | Video 4: ??? |
+:-------------------------:|:-------------------------:
+[![](https://img.youtube.com/vi/fRV6cGXVQ4I/maxresdefault.jpg)](https://www.youtube.com/watch?v=fRV6cGXVQ4I) | ![](https://via.placeholder.com/1280x720?text=?)
