@@ -16,12 +16,15 @@ const tx1 = new Transaction(myWalletAddress, 'address2', 100);
 tx1.signTransaction(myKey);
 savjeeCoin.addTransaction(tx1);
 
-// Create second transaction & add it
+// Mine block
+savjeeCoin.minePendingTransactions(myWalletAddress);
+
+// Create second transaction
 const tx2 = new Transaction(myWalletAddress, 'address1', 50);
 tx2.signTransaction(myKey);
 savjeeCoin.addTransaction(tx2);
 
-console.log('\nStarting the miner...');
+// Mine block
 savjeeCoin.minePendingTransactions(myWalletAddress);
 
 console.log('\nBalance of xavier is', savjeeCoin.getBalanceOfAddress(myWalletAddress));
