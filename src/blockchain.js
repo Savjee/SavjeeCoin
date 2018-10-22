@@ -80,7 +80,7 @@ class Block {
         console.log("BLOCK MINED: " + this.hash);
     }
 
-    verifyTransactionsInBlock(){
+    hasValidTransactions(){
         for(const tx of this.transactions){
             if(!tx.isValid()){
                 return false;
@@ -153,8 +153,7 @@ class Blockchain{
             const currentBlock = this.chain[i];
             const previousBlock = this.chain[i - 1];
 
-            // Verify the transaction inside this block
-            if(!currentBlock.verifyTransactionsInBlock()){
+            if(!currentBlock.hasValidTransactions()){
                 return false;
             }
 
