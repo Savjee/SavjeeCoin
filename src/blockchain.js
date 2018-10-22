@@ -9,13 +9,20 @@ class Transaction{
         this.amount = amount;
     }
 
+    /**
+     * Hashes all the fields of the transaction and returns it as a string.
+     */
     calculateHash(){
         return SHA256(this.fromAddress + this.toAddress + this.amount)
                     .toString();
     }
 
+    /**
+     * Signs a transaction with the given signingKey (which is an Elliptic keypair
+     * object that contains a private key). The signature is then stored inside the
+     * transaction object and later stored on the blockchain.
+     */
     signTransaction(signingKey){
-
         // You can only send a transaction from the wallet that is linked to your
         // key. So here we check if the fromAddress matches your publicKey
         if(signingKey.getPublic('hex') !== this.fromAddress){
@@ -31,11 +38,14 @@ class Transaction{
     }
 
     /**
-     * Checks if the signature is correct for this transaction. It uses the
-     * fromAddress as a public key.
+     * Checks if the signature is valid (transaction has not been tampered with).
+     * It uses the fromAddress as the public key.
      */
     isValid(){
-        // If the transaction is a mining reward we can't verify the signature
+
+        // If the transaction doesn't have a from address we assume it's a
+        // mining reward and that it's valid. You could verify this in a
+        // different way (special field for instance)
         if(this.fromAddress === null) return true;
 
         if(!this.signature || this.signature.length === 0){
