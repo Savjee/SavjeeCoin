@@ -7,13 +7,14 @@ class Transaction{
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.amount = amount;
+        this.timestamp = Date.now();
     }
 
     /**
      * Hashes all the fields of the transaction and returns it as a string.
      */
     calculateHash(){
-        return SHA256(this.fromAddress + this.toAddress + this.amount)
+        return SHA256(this.fromAddress + this.toAddress + this.amount + this.timestamp)
                     .toString();
     }
 
