@@ -1,13 +1,21 @@
 {
-  "name": "savjeecoin",
+  "name": "SavjeeCoin",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "Simple Blockchain implementation in Javascript. For educational purposes only.",
+  "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Xavier Decuyper <hi@savjee.be>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SavjeeTutorials/SavjeeCoin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Savjee/trash-pickup-belgium/issues"
+  },
+  "homepage": "https://github.com/SavjeeTutorials/SavjeeCoin",
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "elliptic": "^6.4.1"
