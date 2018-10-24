@@ -17,6 +17,7 @@ class Transaction{
 
     /**
      * Hashes all the fields of the transaction and returns it as a string.
+     * @returns {string}
      */
     calculateHash(){
         return SHA256(this.fromAddress + this.toAddress + this.amount + this.timestamp)
@@ -135,7 +136,7 @@ class Blockchain{
     }
 
     /**
-     * @param {string | CryptoJS.WordArray} miningRewardAddress 
+     * @param {string} miningRewardAddress 
      */
     minePendingTransactions(miningRewardAddress){
         const rewardTx = new Transaction(null, miningRewardAddress, this.miningReward);
@@ -169,7 +170,7 @@ class Blockchain{
     }
 
     /**
-     * @param {string | CryptoJS.WordArray} address 
+     * @param {string} address 
      * @returns {number}
      */
     getBalanceOfAddress(address){
