@@ -27,10 +27,12 @@ savjeeCoin.addTransaction(tx2);
 // Mine block
 savjeeCoin.minePendingTransactions(myWalletAddress);
 
-console.log('\nBalance of xavier is', savjeeCoin.getBalanceOfAddress(myWalletAddress));
+console.log();
+console.log(`Balance of xavier is ${savjeeCoin.getBalanceOfAddress(myWalletAddress)}`);
 
 // Uncomment this line if you want to test tampering with the chain
 // savjeeCoin.chain[1].transactions[0].amount = 10;
 
 // Check if the chain is valid
-console.log('\nBlockchain valid?', savjeeCoin.isChainValid() ? 'Yes' : 'No');
+console.log();
+console.log('Blockchain valid?', savjeeCoin.isChainValid() ? 'Yes' : 'No');
