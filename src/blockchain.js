@@ -67,13 +67,13 @@ class Transaction{
 
 class Block {
     /**
-     * @param {Date} timestamp 
+     * @param {number} timestamp 
      * @param {Transaction[]} transactions 
      * @param {string} previousHash 
      */
     constructor(timestamp, transactions, previousHash = '') {
         this.previousHash = previousHash;
-        this.timestamp = timestamp.toISOString();
+        this.timestamp = timestamp;
         this.transactions = transactions;
         this.nonce = 0;
         this.hash = this.calculateHash();
