@@ -9,8 +9,6 @@ const publicKey = key.getPublic('hex');
 const privateKey = key.getPrivate('hex');
 
 // Print the keys to the console
-console.log();
-console.log('Your public key (also your wallet address, freely shareable)\n', publicKey);
+console.log('\nYour public key (also your wallet address, freely shareable)\n', publicKey);
 
-console.log();
-console.log('Your private key (keep this secret! To sign transactions)\n', privateKey);
+console.log('\nYour private key (keep this secret! To sign transactions)\n', privateKey);

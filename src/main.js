@@ -1,4 +1,4 @@
-const {Blockchain, Transaction}= require('./blockchain');
+const { Blockchain, Transaction }= require('./blockchain');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 
@@ -34,5 +34,4 @@ console.log('\nBalance of xavier is', savjeeCoin.getBalanceOfAddress(myWalletAdd
 // savjeeCoin.chain[1].transactions[0].amount = 10;
 
 // Check if the chain is valid
-console.log();
-console.log('Blockchain valid?', savjeeCoin.isChainValid() ? 'Yes' : 'No');
+console.log('\nBlockchain valid?', savjeeCoin.isChainValid() ? 'Yes' : 'No');
