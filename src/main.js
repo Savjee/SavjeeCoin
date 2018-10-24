@@ -1,4 +1,4 @@
-const { Blockchain, Transaction }= require('./blockchain');
+const { Blockchain, Transaction } = require('./blockchain');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
 
@@ -28,7 +28,6 @@ savjeeCoin.addTransaction(tx2);
 savjeeCoin.minePendingTransactions(myWalletAddress);
 
 console.log('\nBalance of xavier is', savjeeCoin.getBalanceOfAddress(myWalletAddress));
-
 
 // Uncomment this line if you want to test tampering with the chain
 // savjeeCoin.chain[1].transactions[0].amount = 10;
