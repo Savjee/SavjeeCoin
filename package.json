@@ -4,8 +4,8 @@
   "description": "Simple Blockchain implementation in Javascript. For educational purposes only.",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint src/**"
+    "test": "./node_modules/.bin/mocha tests/*.test.js",
+    "lint": "./node_modules/.bin/eslint src/** tests/**"
   },
   "author": "Xavier Decuyper <hi@savjee.be>",
   "license": "MIT",
@@ -27,6 +27,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^5.2.0"
   }
 }
