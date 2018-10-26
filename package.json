@@ -4,9 +4,9 @@
   "description": "Simple Blockchain implementation in Javascript. For educational purposes only.",
   "main": "src/main.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha tests/*.test.js",
-    "lint": "./node_modules/.bin/eslint src/**",
-    "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov mocha tests/** | coveralls"
+    "test": "mocha tests/*.test.js",
+    "lint": "eslint src/**",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Xavier Decuyper <hi@savjee.be>",
   "license": "MIT",
