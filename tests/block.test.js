@@ -1,30 +1,19 @@
 const assert = require('assert');
 const { Block, Transaction } = require('../src/blockchain');
-const EC = require('elliptic').ec;
-const ec = new EC('secp256k1');
+const { createSignedTx } = require('./helpers');
 
 let blockObj = null;
-let signingKey = ec.keyFromPrivate('3d6f54430830d388052865b95c10b4aeb1bbe33c01334cf2cfa8b520062a0ce3');
-
 
 beforeEach(function() {
-    blockObj = new Block(1000, [createCorrectlySignedTransaction()], 'a1');
+    blockObj = new Block(1000, [createSignedTx()], 'a1');
 });
-
-function createCorrectlySignedTransaction(){
-	txObject = new Transaction(signingKey.getPublic('hex'), 'wallet2', 10);
-    txObject.timestamp = 1;
-    txObject.signTransaction(signingKey);
-
-    return txObject;
-}
 
 describe('Block class', function() {
     describe('Constructor', function() {
         it('should correctly save parameters', function() {
             assert.equal(blockObj.previousHash, 'a1');
             assert.equal(blockObj.timestamp, 1000);
-            assert.deepEqual(blockObj.transactions, [createCorrectlySignedTransaction()]);
+            assert.deepEqual(blockObj.transactions, [createSignedTx()]);
             assert.equal(blockObj.nonce, 0);
         });
     });
@@ -54,20 +43,20 @@ describe('Block class', function() {
     describe('has valid transactions', function(){
         it('should return true with all valid tx', function(){
             blockObj.transactions = [
-                createCorrectlySignedTransaction(),
-                createCorrectlySignedTransaction(),
-                createCorrectlySignedTransaction(),
+                createSignedTx(),
+                createSignedTx(),
+                createSignedTx(),
             ];
 
             assert(blockObj.hasValidTransactions());
         });
 
         it('should return false when a single tx is bad', function(){
-            const badTx = createCorrectlySignedTransaction();
+            const badTx = createSignedTx();
             badTx.amount = 1337;
 
             blockObj.transactions = [
-                createCorrectlySignedTransaction(),
+                createSignedTx(),
                 badTx
             ];
 

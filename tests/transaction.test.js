@@ -1,23 +1,12 @@
 const assert = require('assert');
 const { Transaction } = require('../src/blockchain');
-const EC = require('elliptic').ec;
-const ec = new EC('secp256k1');
+const { createSignedTx, signingKey } = require('./helpers');
 
 let txObject = null;
-let signingKey = ec.keyFromPrivate('3d6f54430830d388052865b95c10b4aeb1bbe33c01334cf2cfa8b520062a0ce3');
-
 
 beforeEach(function() {
     txObject = new Transaction('fromAddress', 'toAddress', 9999);
 });
-
-function createCorrectlySignedTransaction(){
-	txObject = new Transaction(signingKey.getPublic('hex'), 'wallet2', 10);
-    txObject.timestamp = 1;
-    txObject.signTransaction(signingKey);
-
-    return txObject;
-}
 
 describe('Transaction class', function() {
     describe('Constructor', function() {
@@ -71,7 +60,7 @@ describe('Transaction class', function() {
         });
 
         it('should correctly sign transactions', function(){
-        	txObject = createCorrectlySignedTransaction();
+        	txObject = createSignedTx();
 
         	assert.equal(
         		txObject.signature,
@@ -91,7 +80,7 @@ describe('Transaction class', function() {
         });
 
         it('should detect badly signed transactions', function(){
-        	txObject = createCorrectlySignedTransaction();
+        	txObject = createSignedTx();
 
         	// Tamper with it & it should be invalid!
         	txObject.amount = 100;
@@ -99,7 +88,7 @@ describe('Transaction class', function() {
         });
 
         it('should return true with correctly signed tx', function(){
-        	txObject = createCorrectlySignedTransaction();
+        	txObject = createSignedTx();
         	assert(txObject.isValid());
         });
 
