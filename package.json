@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha tests/*.test.js",
-    "lint": "./node_modules/.bin/eslint src/** tests/**"
+    "lint": "./node_modules/.bin/eslint src/**"
   },
   "author": "Xavier Decuyper <hi@savjee.be>",
   "license": "MIT",
