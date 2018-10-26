@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha tests/*.test.js",
-    "lint": "./node_modules/.bin/eslint src/**"
+    "lint": "./node_modules/.bin/eslint src/**",
+    "coverage": "./node_modules/.bin/nyc report --reporter=text-lcov mocha tests/** | coveralls"
   },
   "author": "Xavier Decuyper <hi@savjee.be>",
   "license": "MIT",
@@ -22,12 +23,14 @@
     "elliptic": "^6.4.1"
   },
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "eslint": "^5.7.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
   }
 }
