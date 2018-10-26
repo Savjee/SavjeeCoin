@@ -67,7 +67,7 @@ describe('Transaction class', function() {
 
     describe('isValid', function() {
         it('should throw error without signature', function() {
-            assert.throws(txObject.isValid, Error);
+            assert.throws(() => { txObject.isValid() }, Error);
         });
 
         it('should correctly sign transactions', function(){
@@ -100,6 +100,16 @@ describe('Transaction class', function() {
 
         it('should return true with correctly signed tx', function(){
         	txObject = createCorrectlySignedTransaction();
+        	assert(txObject.isValid());
+        });
+
+        it('should fail when signature is empty string', function(){
+        	txObject.signature = '';
+        	assert.throws(() => {txObject.isValid()}, Error);
+        });
+
+        it('should return true for mining rewards', function(){
+        	txObject.fromAddress = null;
         	assert(txObject.isValid());
         })
     });
