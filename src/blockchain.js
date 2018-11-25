@@ -214,6 +214,27 @@ class Blockchain {
   }
 
   /**
+   * Returns a list of all transactions that happened
+   * to and from the given wallet address.
+   * 
+   * @param  {string} address
+   * @return {Transaction[]}
+   */
+  getAllTransactionsForWallet(address){
+    const txs = [];
+
+    for(const block of this.chain){
+      for(const tx of block.transactions){
+        if(trans.fromAddress === address || trans.toAddress === address){
+          txs.push(tx);
+        }
+      }
+    }
+
+    return txs;
+  }
+
+  /**
    * Loops over all the blocks in the chain and verify if they are properly
    * linked together and nobody has tampered with the hashes. By checking
    * the blocks it also verifies the (signed) transactions inside of them.
