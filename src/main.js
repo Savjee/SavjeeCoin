@@ -36,4 +36,3 @@ console.log(`Balance of xavier is ${savjeeCoin.getBalanceOfAddress(myWalletAddre
 // Check if the chain is valid
 console.log();
 console.log('Blockchain valid?', savjeeCoin.isChainValid() ? 'Yes' : 'No');
- 
