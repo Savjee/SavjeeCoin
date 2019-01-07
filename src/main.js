@@ -11,10 +11,9 @@ const myWalletAddress = myKey.getPublic('hex');
 // Create new instance of Blockchain class
 const savjeeCoin = new Blockchain();
 
-// Create a negative transaction which will act as the initial balance
-const tx0 = new Transaction(myWalletAddress, 'address2', -500);
-tx0.signTransaction(myKey);
-savjeeCoin.addTransaction(tx0);
+// Seed wallet to do valid transactions later, can be used later to give joining reward
+savjeeCoin.seedWallet(myWalletAddress, 500);
+console.log(savjeeCoin.getBalanceOfAddress(myWalletAddress));
 
 // Create a transaction & sign it with your key
 const tx1 = new Transaction(myWalletAddress, 'address2', 100);
