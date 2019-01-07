@@ -197,9 +197,9 @@ class Blockchain {
   
   /**
    * Adds an initial amount to the target address
-   * 
-   * @param {string} walletNumber 
-   * @param {number} amount 
+   *
+   * @param {string} walletNumber
+   * @param {number} amount
    */
   seedWallet(walletNumber, amount) {
     this.pendingTransactins.push(new Transaction(null, walletNumber, amount));
