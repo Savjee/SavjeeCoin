@@ -189,7 +189,7 @@ class Blockchain {
     
     // Making sure that the amount sent is not greater than existing balance
     if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
-      throw new Error("Not enough balance");
+      throw new Error('Not enough balance');
     }
 
     this.pendingTransactions.push(transaction);
