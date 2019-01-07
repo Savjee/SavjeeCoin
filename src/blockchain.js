@@ -197,6 +197,7 @@ class Blockchain {
   
   /**
    * Adds an initial amount to the target address
+   * 
    * @param {string} walletNumber 
    * @param {number} amount 
    */
