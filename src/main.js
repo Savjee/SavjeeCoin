@@ -12,7 +12,9 @@ const myWalletAddress = myKey.getPublic('hex');
 const savjeeCoin = new Blockchain();
 
 // Create a negative transaction which will act as the initial balance
-const tx1 = new Transaction(myWalletAddress, 'address2', -500);
+const tx0 = new Transaction(myWalletAddress, 'address2', -500);
+tx0.signTransaction(myKey);
+savjeeCoin.addTransaction(tx0);
 
 // Create a transaction & sign it with your key
 const tx1 = new Transaction(myWalletAddress, 'address2', 100);
