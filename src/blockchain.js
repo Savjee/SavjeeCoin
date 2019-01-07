@@ -194,6 +194,16 @@ class Blockchain {
 
     this.pendingTransactions.push(transaction);
   }
+  
+  /**
+   * Adds an initial amount to the target address
+   * @param {string} walletNumber 
+   * @param {number} amount 
+   */
+  seedWallet(walletNumber, amount) {
+    this.pendingTransactins.push(new Transaction(null, walletNumber, amount));
+    this.minePendingTransactions(null);
+  }
 
   /**
    * Returns the balance of a given wallet address.
