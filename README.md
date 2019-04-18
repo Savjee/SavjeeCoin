@@ -24,3 +24,7 @@ This source code comes from [my video series on YouTube](https://www.youtube.com
 | Video 3: Mining rewards & transactions | Video 4: Signing transactions |
 :-------------------------:|:-------------------------:
 [![](https://img.youtube.com/vi/fRV6cGXVQ4I/maxresdefault.jpg)](https://www.youtube.com/watch?v=fRV6cGXVQ4I) | [![](https://img.youtube.com/vi/kWQ84S13-hw/maxresdefault.jpg)](https://www.youtube.com/watch?v=kWQ84S13-hw)
+
+| Video 4: Building a front-end in Angular |
+:---------:
+[![](https://img.youtube.com/vi/AQV0WNpE_3g/maxresdefault.jpg)](https://www.youtube.com/watch?v=AQV0WNpE_3g) |
