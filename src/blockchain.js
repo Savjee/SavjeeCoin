@@ -186,6 +186,10 @@ class Blockchain {
     if (!transaction.isValid()) {
       throw new Error('Cannot add invalid transaction to chain');
     }
+    
+    if (transaction.amount <= 0) {
+      throw new Error('Transaction amount should be higher than 0');
+    }
 
     this.pendingTransactions.push(transaction);
   }
@@ -255,17 +259,12 @@ class Blockchain {
     // signatures are correct
     for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i];
-      const previousBlock = this.chain[i - 1];
 
       if (!currentBlock.hasValidTransactions()) {
         return false;
       }
 
       if (currentBlock.hash !== currentBlock.calculateHash()) {
-        return false;
-      }
-
-      if (currentBlock.previousHash !== previousBlock.calculateHash()) {
         return false;
       }
     }
