@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { Blockchain, Transaction } = require('../src/blockchain');
+const { Blockchain } = require('../src/blockchain');
 const { createSignedTx, signingKey, createBlockchainWithTx } = require('./helpers');
 
 let blockchain = null;
@@ -88,12 +88,32 @@ describe('Blockchain class', function() {
     		blockchain = createBlockchainWithTx();
     		blockchain.chain[1].transactions[0].amount = 897397;
     		assert(!blockchain.isChainValid());
-    	});
+		});
 
     	it('should fail when a block has been changed', function(){
     		blockchain = createBlockchainWithTx();
     		blockchain.chain[1].timestamp = 897397;
     		assert(!blockchain.isChainValid());
     	});
-    });
+	});
+	
+	describe("getAllTransactionsForWallet", function(){
+		it("should get all Transactions for a Wallet", function() {
+			const validTx = createSignedTx();
+    		blockchain.addTransaction(validTx);
+    		blockchain.addTransaction(validTx);
+
+			blockchain.minePendingTransactions("b2");
+			blockchain.addTransaction(validTx);
+			blockchain.addTransaction(validTx);
+			blockchain.minePendingTransactions("b2");
+
+			blockchain.getAllTransactionsForWallet("b2").forEach((x) => {
+				assert.equal(x.amount, 100);
+				assert.equal(x.fromAddress, null);
+				assert.equal(x.toAddress, "b2");
+				// timestamp cant be verified?
+			});
+		});
+	});
 });

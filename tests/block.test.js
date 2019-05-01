@@ -16,6 +16,14 @@ describe('Block class', function() {
             assert.deepEqual(blockObj.transactions, [createSignedTx()]);
             assert.equal(blockObj.nonce, 0);
         });
+
+        it('should correctly save parameters, without giving "previousHash"', function() {
+            blockObj = new Block(1000, [createSignedTx()]);
+            assert.equal(blockObj.previousHash, '');
+            assert.equal(blockObj.timestamp, 1000);
+            assert.deepEqual(blockObj.transactions, [createSignedTx()]);
+            assert.equal(blockObj.nonce, 0);
+        });
     });
 
     describe('Calculate hash', function() {
