@@ -187,7 +187,7 @@ class Blockchain {
       throw new Error('Cannot add invalid transaction to chain');
     }
     
-    if(transaction.amount <= 0){
+    if (transaction.amount <= 0) {
       throw new Error('Transaction amount should be higher than 0');
     }
 
