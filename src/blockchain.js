@@ -264,10 +264,6 @@ class Blockchain {
       if (currentBlock.hash !== currentBlock.calculateHash()) {
         return false;
       }
-
-      if (currentBlock.previousHash !== previousBlock.calculateHash()) {
-        return false;
-      }
     }
 
     return true;
