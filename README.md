@@ -1,6 +1,6 @@
 # SavjeeCoin
 
-[![Build Status](https://travis-ci.org/Savjee/SavjeeCoin.svg?branch=master)](https://travis-ci.org/Savjee/SavjeeCoin) [![Coverage Status](https://coveralls.io/repos/github/SavjeeTutorials/SavjeeCoin/badge.svg?branch=master)](https://coveralls.io/github/SavjeeTutorials/SavjeeCoin?branch=master)
+[![Build Status](https://travis-ci.org/Savjee/SavjeeCoin.svg?branch=master)](https://travis-ci.org/Savjee/SavjeeCoin) [![Coverage Status](https://coveralls.io/repos/github/Savjee/SavjeeCoin/badge.svg?branch=master)](https://coveralls.io/github/Savjee/SavjeeCoin?branch=master)
 
 A very simple blockchain implementation in Javascript.
 
