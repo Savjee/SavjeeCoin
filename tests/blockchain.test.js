@@ -45,6 +45,14 @@ describe('Blockchain class', function() {
 
     		assert.throws(() => { blockchain.addTransaction(validTx) }, Error);
     	});
+        
+        it('should fail when tx has negative or zero amount', function() {
+            const tx1 = createSignedTx(0);
+            assert.throws(() => { blockchain.addTransaction(tx1) }, Error);
+
+			const tx2 = createSignedTx(-20);
+            assert.throws(() => { blockchain.addTransaction(tx2) }, Error);
+        });
     });
 
     describe('wallet balance', function(){
