@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "mocha tests/*.js",
-    "lint": "eslint src/**",
+    "lint": "eslint src/** tests/**",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Xavier Decuyper <hi@savjee.be>",
