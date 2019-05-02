@@ -116,11 +116,11 @@ describe('Blockchain class', function() {
       blockchain.addTransaction(validTx);
       blockchain.minePendingTransactions('b2');
 
+      assert.strict.equal(blockchain.getAllTransactionsForWallet('b2').length, 2);
       for (const trans of blockchain.getAllTransactionsForWallet('b2')) {
         assert.strict.equal(trans.amount, 100);
         assert.strict.equal(trans.fromAddress, null);
         assert.strict.equal(trans.toAddress, 'b2');
-        // timestamp cant be verified?
       }
     });
   });
