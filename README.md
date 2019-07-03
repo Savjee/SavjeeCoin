@@ -1,19 +1,40 @@
-# SavjeeCoin
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="https://i.imgur.com/VELRxXl.png" alt="Project logo"></a>
+</p>
 
-[![Build Status](https://travis-ci.org/Savjee/SavjeeCoin.svg?branch=master)](https://travis-ci.org/Savjee/SavjeeCoin) [![Coverage Status](https://coveralls.io/repos/github/Savjee/SavjeeCoin/badge.svg?branch=master)](https://coveralls.io/github/Savjee/SavjeeCoin?branch=master)
+<h3 align="center">SavjeeCoin</h3>
 
-A very simple blockchain implementation in Javascript.
+<div align="center">
 
-For education purposes only. This is by no means a complete implementation and it is by no means secure!
+  [![Build Status](https://travis-ci.org/Savjee/SavjeeCoin.svg?branch=master)](https://travis-ci.org/Savjee/SavjeeCoin)
+  [![Coverage Status](https://coveralls.io/repos/github/Savjee/SavjeeCoin/badge.svg?branch=master)](https://coveralls.io/github/Savjee/SavjeeCoin?branch=master)
+  [![GitHub Issues](https://img.shields.io/github/issues/Savjee/SavjeeCoin.svg)](https://github.com/Savjee/SavjeeCoin/issues)
+  [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Savjee/SavjeeCoin.svg)](https://github.com/Savjee/SavjeeCoin/pulls)
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
-# Features
+</div>
+
+---
+
+*⚠️ For education purposes only. This is by no means a complete implementation and it is by no means secure!*
+
+## Features
 
 * Simple proof-of-work algorithm
 * Verify blockchain (to prevent tampering)
 * Generate wallet (private/public key)
 * Sign transactions
 
-# Videos
+## 🏁 Getting Started <a name = "getting_started"></a>
+
+Install the library:
+```
+npm install --save savjeecoin
+```
+
+
+## 📽 Video tutorial
 This source code comes from [my video series on YouTube](https://www.youtube.com/watch?v=zVqczFZr124&list=PLzvRQMJ9HDiTqZmbtFisdXFxul5k0F-Q4). You can check them here:
 
 | Video 1: Simple implementation | Video 2: Adding Proof-of-work |
