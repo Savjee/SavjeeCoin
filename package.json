@@ -1,8 +1,8 @@
 {
-  "name": "SavjeeCoin",
+  "name": "savjeecoin",
   "version": "1.0.0",
   "description": "Simple Blockchain implementation in Javascript. For educational purposes only.",
-  "main": "src/main.js",
+  "main": "src/blockchain.js",
   "scripts": {
     "test": "mocha tests/*.js",
     "lint": "eslint src/** tests/**",
