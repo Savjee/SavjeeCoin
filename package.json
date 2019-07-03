@@ -2,6 +2,11 @@
   "name": "savjeecoin",
   "version": "1.0.0",
   "description": "Simple Blockchain implementation in Javascript. For educational purposes only.",
+  "keywords": [
+    "blockchain",
+    "transactions",
+    "education"
+  ],
   "main": "src/blockchain.js",
   "scripts": {
     "test": "mocha tests/*.js",
