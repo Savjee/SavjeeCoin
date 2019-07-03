@@ -50,7 +50,7 @@ console.log('Public key:', myKey.getPublic('hex'));
 console.log('Private key:', myKey.getPrivate('hex'));
 ```
 
-### Create a blockchain & add transactions
+### Create a blockchain instance
 Now you can create a new instance of a Blockchain:
 
 ```js
@@ -59,8 +59,7 @@ const {Blockchain, Transaction} = require('savjeecoin');
 const myChain = new Blockchain();
 ```
 
-And add transactions to it:
-
+### Adding transactions
 ```js
 // Transfer 100 coins from my wallet to "toAddress"
 const tx = new Transaction(myKey.getPublic('hex'), 'toAddress', 100);
