@@ -2,7 +2,7 @@ module.exports = {
     "root": true,
     "extends": "standard",
     "rules": {
-        "semi": [2, "always"],
+        "semi": ["error", "always"],
         "indent": ["error", 2],
         "space-before-function-paren": ["error", "never"],
         "no-trailing-spaces": ["error", { "skipBlankLines": true }],

@@ -1,6 +1,7 @@
-const SHA256 = require('crypto-js/sha256');
+const crypto = require('crypto');
 const EC = require('elliptic').ec;
 const ec = new EC('secp256k1');
+const debug = require('debug')('savjeecoin:blockchain');
 
 class Transaction {
   /**
@@ -21,8 +22,7 @@ class Transaction {
    * @returns {string}
    */
   calculateHash() {
-    return SHA256(this.fromAddress + this.toAddress + this.amount + this.timestamp)
-      .toString();
+    return crypto.createHash('sha256').update(this.fromAddress + this.toAddress + this.amount + this.timestamp).digest('hex');
   }
 
   /**
@@ -90,7 +90,7 @@ class Block {
    * @returns {string}
    */
   calculateHash() {
-    return SHA256(this.previousHash + this.timestamp + JSON.stringify(this.transactions) + this.nonce).toString();
+    return crypto.createHash('sha256').update(this.previousHash + this.timestamp + JSON.stringify(this.transactions) + this.nonce).digest('hex');
   }
 
   /**
@@ -105,7 +105,7 @@ class Block {
       this.hash = this.calculateHash();
     }
 
-    console.log(`Block mined: ${this.hash}`);
+    debug(`Block mined: ${this.hash}`);
   }
 
   /**
@@ -161,10 +161,10 @@ class Blockchain {
     const rewardTx = new Transaction(null, miningRewardAddress, this.miningReward);
     this.pendingTransactions.push(rewardTx);
 
-    let block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
+    const block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
     block.mineBlock(this.difficulty);
 
-    console.log('Block successfully mined!');
+    debug('Block successfully mined!');
     this.chain.push(block);
 
     this.pendingTransactions = [];
@@ -197,6 +197,7 @@ class Blockchain {
     }
 
     this.pendingTransactions.push(transaction);
+    debug('transaction added: %s', transaction);
   }
 
   /**
@@ -220,6 +221,7 @@ class Blockchain {
       }
     }
 
+    debug('getBalanceOfAdrees: %s', balance);
     return balance;
   }
 
@@ -241,6 +243,7 @@ class Blockchain {
       }
     }
 
+    debug('get transactions for wallet count: %s', txs.length);
     return txs;
   }
 
