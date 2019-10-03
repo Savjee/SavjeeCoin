@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { Blockchain } = require('../src/blockchain');
-const { createSignedTx, signingKey, createBlockchainWithTx } = require('./helpers');
+const { createSignedTx, signingKey, createBlockchainWithTx, createBCWithMined } = require('./helpers');
 
 let blockchain = null;
 
@@ -19,6 +19,7 @@ describe('Blockchain class', function() {
 
   describe('addTransaction', function() {
     it('should correctly add new tx', function() {
+      const blockchain = createBCWithMined();
       const validTx = createSignedTx();
       blockchain.addTransaction(validTx);
 
@@ -53,10 +54,16 @@ describe('Blockchain class', function() {
       const tx2 = createSignedTx(-20);
       assert.throws(() => { blockchain.addTransaction(tx2); }, Error);
     });
+
+    it('should fail when not having enough balance', function() {
+      const tx1 = createSignedTx();
+      assert.throws(() => { blockchain.addTransaction(tx1); }, Error);
+    });
   });
 
   describe('wallet balance', function() {
     it('should give mining rewards', function() {
+      const blockchain = createBCWithMined();
       const validTx = createSignedTx();
       blockchain.addTransaction(validTx);
       blockchain.addTransaction(validTx);
@@ -68,10 +75,10 @@ describe('Blockchain class', function() {
 
     it('should correctly reduce wallet balance', function() {
       const walletAddr = signingKey.getPublic('hex');
-      blockchain = createBlockchainWithTx();
+      const blockchain = createBlockchainWithTx();
 
       blockchain.minePendingTransactions(walletAddr);
-      assert.strict.equal(blockchain.getBalanceOfAddress(walletAddr), 80);
+      assert.strict.equal(blockchain.getBalanceOfAddress(walletAddr), 180);
     });
   });
 
@@ -83,7 +90,7 @@ describe('Blockchain class', function() {
 
   describe('isChainValid', function() {
     it('should return true if no tampering', function() {
-      blockchain = createBlockchainWithTx();
+      const blockchain = createBlockchainWithTx();
       assert(blockchain.isChainValid());
     });
 
@@ -93,13 +100,13 @@ describe('Blockchain class', function() {
     });
 
     it('should fail when a tx is invalid', function() {
-      blockchain = createBlockchainWithTx();
-      blockchain.chain[1].transactions[0].amount = 897397;
+      const blockchain = createBlockchainWithTx();
+      blockchain.chain[2].transactions[1].amount = 897397;
       assert(!blockchain.isChainValid());
     });
 
     it('should fail when a block has been changed', function() {
-      blockchain = createBlockchainWithTx();
+      const blockchain = createBlockchainWithTx();
       blockchain.chain[1].timestamp = 897397;
       assert(!blockchain.isChainValid());
     });
@@ -107,6 +114,7 @@ describe('Blockchain class', function() {
   
   describe('getAllTransactionsForWallet', function() {
     it('should get all Transactions for a Wallet', function() {
+      const blockchain = createBCWithMined();
       const validTx = createSignedTx();
       blockchain.addTransaction(validTx);
       blockchain.addTransaction(validTx);
@@ -117,6 +125,7 @@ describe('Blockchain class', function() {
       blockchain.minePendingTransactions('b2');
 
       assert.strict.equal(blockchain.getAllTransactionsForWallet('b2').length, 2);
+      assert.strict.equal(blockchain.getAllTransactionsForWallet(signingKey.getPublic('hex')).length, 5);
       for (const trans of blockchain.getAllTransactionsForWallet('b2')) {
         assert.strict.equal(trans.amount, 100);
         assert.strict.equal(trans.fromAddress, null);

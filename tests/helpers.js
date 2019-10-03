@@ -11,10 +11,18 @@ function createSignedTx(amount = 10) {
   return txObject;
 }
 
+function createBCWithMined() {
+  const blockchain = new Blockchain();
+  blockchain.minePendingTransactions(signingKey.getPublic('hex'));
+
+  return blockchain;
+}
+
 function createBlockchainWithTx() {
   const blockchain = new Blockchain();
-  const walletAddr = signingKey.getPublic('hex');
-  const validTx = new Transaction(walletAddr, 'b2', 10);
+  blockchain.minePendingTransactions(signingKey.getPublic('hex'));
+
+  const validTx = new Transaction(signingKey.getPublic('hex'), 'b2', 10);
   validTx.signTransaction(signingKey);
 
   blockchain.addTransaction(validTx);
@@ -27,3 +35,4 @@ function createBlockchainWithTx() {
 module.exports.signingKey = signingKey;
 module.exports.createSignedTx = createSignedTx;
 module.exports.createBlockchainWithTx = createBlockchainWithTx;
+module.exports.createBCWithMined = createBCWithMined;
