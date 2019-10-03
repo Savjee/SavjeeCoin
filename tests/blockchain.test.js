@@ -101,7 +101,7 @@ describe('Blockchain class', function() {
 
     it('should fail when a tx is invalid', function() {
       const blockchain = createBlockchainWithTx();
-      blockchain.chain[1].transactions[0].amount = 897397;
+      blockchain.chain[2].transactions[1].amount = 897397;
       assert(!blockchain.isChainValid());
     });
 
