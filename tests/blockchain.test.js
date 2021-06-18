@@ -110,6 +110,13 @@ describe('Blockchain class', function() {
       blockchain.chain[1].timestamp = 897397;
       assert(!blockchain.isChainValid());
     });
+
+    it('should fail when a previous block hash has been changed', function() {
+      const blockchain = createBlockchainWithTx();
+      blockchain.chain[1].transactions[0].amount = 897397;
+      blockchain.chain[1].hash = blockchain.chain[1].calculateHash();
+      assert(!blockchain.isChainValid());
+    });
   });
   
   describe('getAllTransactionsForWallet', function() {
