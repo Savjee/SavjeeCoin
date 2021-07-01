@@ -9,7 +9,7 @@
   ],
   "main": "src/blockchain.js",
   "scripts": {
-    "test": "nyc mocha tests/*.js --reporter json > test-results.json",
+    "test": "nyc mocha tests/*.js",
     "lint": "eslint src/** tests/**",
     "coverage": "npm run test && nyc report --reporter=text-lcov | coveralls"
   },
