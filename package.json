@@ -11,7 +11,7 @@
   "scripts": {
     "test": "nyc mocha tests/*.js",
     "lint": "eslint src/** tests/**",
-    "coverage": "npm run test && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc --reporter=lcov npm run test"
   },
   "author": "Xavier Decuyper <hi@savjee.be>",
   "license": "MIT",
