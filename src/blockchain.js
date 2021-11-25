@@ -181,6 +181,10 @@ class Blockchain {
     if (!transaction.fromAddress || !transaction.toAddress) {
       throw new Error('Transaction must include from and to address');
     }
+ 
+    if (transaction.fromAddress == transaction.toAddress) {
+      throw new Error('Transaction cannot be from and to the same address');
+    }
 
     // Verify the transactiion
     if (!transaction.isValid()) {
