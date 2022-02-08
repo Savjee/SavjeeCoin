@@ -1,5 +1,4 @@
 const assert = require('assert');
-const { createSign } = require('crypto');
 const { Blockchain, Transaction } = require('../src/blockchain');
 const { createSignedTx, signingKey, createBlockchainWithTx, createBCWithMined } = require('./helpers');
 
@@ -98,7 +97,7 @@ describe('Blockchain class', function() {
       tx.signTransaction(signingKey);
 
       blockchain.addTransaction(tx);
-      blockchain.minePendingTransactions("no_addr");
+      blockchain.minePendingTransactions('no_addr');
       assert.strict.equal(blockchain.getBalanceOfAddress(walletAddr), 80);
     });
   });
