@@ -192,9 +192,29 @@ class Blockchain {
     }
     
     // Making sure that the amount sent is not greater than existing balance
-    if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
+    const walletBalance = this.getBalanceOfAddress(transaction.fromAddress);
+    if (walletBalance < transaction.amount) {
       throw new Error('Not enough balance');
     }
+
+    // Get all other pending transactions for the "from" wallet
+    const pendingTxForWallet = this.pendingTransactions
+      .filter(tx => tx.fromAddress === transaction.fromAddress);
+
+    // If the wallet has more pending transactions, calculate the total amount
+    // of spend coins so far. If this exceeds the balance, we refuse to add this
+    // transaction.
+    if (pendingTxForWallet.length > 0) {
+      const totalPendingAmount = pendingTxForWallet
+        .map(tx => tx.amount)
+        .reduce((prev, curr) => prev + curr);
+
+      const totalAmount = totalPendingAmount + transaction.amount;
+      if (totalAmount > walletBalance) {
+        throw new Error('Pending transactions for this wallet is higher than its balance.');
+      }
+    }
+                                    
 
     this.pendingTransactions.push(transaction);
     debug('transaction added: %s', transaction);

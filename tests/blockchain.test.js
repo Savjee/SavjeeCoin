@@ -82,6 +82,36 @@ describe('Blockchain class', function() {
     });
   });
 
+  describe('minePendingTransactions', function() {
+    // It should not be possible for a user to create multiple pending
+    // transactions for a total amount higher than his balance.
+    // In this test we start with this situation:
+    //    - Wallet "walletAddr" -> 80 coins (100 mining reward - 2 test tx)
+    //    - Wallet "wallet2" -> 0 coins
+    it('should not allow pending transactions to go below zero', function() {
+      const blockchain = createBlockchainWithTx();
+      const walletAddr = signingKey.getPublic('hex');
+
+      // Verify that the wallets have the correct balance
+      assert.strict.equal(blockchain.getBalanceOfAddress('wallet2'), 0);
+      assert.strict.equal(blockchain.getBalanceOfAddress(walletAddr), 80);
+
+      // Create a transaction for 80 coins (from walletAddr -> "wallet2")
+      blockchain.addTransaction(createSignedTx(80));
+
+      // Try tro create another transaction for which we don't have the balance.
+      // Blockchain should refuse this!
+      assert.throws(() => { blockchain.addTransaction(createSignedTx(80)); }, Error);
+
+      // Mine transactions, send rewards to another address
+      blockchain.minePendingTransactions(1);
+
+      // Verify that the first transaction did go through.
+      assert.strict.equal(blockchain.getBalanceOfAddress(walletAddr), 0);
+      assert.strict.equal(blockchain.getBalanceOfAddress('wallet2'), 80);
+    });
+  });
+
   describe('helper functions', function() {
     it('should correctly set first block to genesis block', function() {
       assert.strict.deepEqual(blockchain.chain[0], blockchain.createGenesisBlock());
