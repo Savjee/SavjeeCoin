@@ -1,5 +1,6 @@
 const assert = require('assert');
-const { Blockchain } = require('../src/blockchain');
+const { createSign } = require('crypto');
+const { Blockchain, Transaction } = require('../src/blockchain');
 const { createSignedTx, signingKey, createBlockchainWithTx, createBCWithMined } = require('./helpers');
 
 let blockchain = null;
@@ -79,6 +80,26 @@ describe('Blockchain class', function() {
 
       blockchain.minePendingTransactions(walletAddr);
       assert.strict.equal(blockchain.getBalanceOfAddress(walletAddr), 180);
+    });
+
+    // It should be allowed to create a transaction from and to the same address
+    // This tests make sure that it works and that the balance of the wallet
+    // stays the same.
+    // Discussion: https://github.com/Savjee/SavjeeCoin/pull/52
+    it('should work with cyclic transactions', function() {
+      const walletAddr = signingKey.getPublic('hex');
+      const blockchain = createBlockchainWithTx();
+
+      assert.strict.equal(blockchain.getBalanceOfAddress(walletAddr), 80);
+
+      // Create new transaction to self
+      const tx = new Transaction(walletAddr, walletAddr, 80);
+      tx.timestamp = 1;
+      tx.signTransaction(signingKey);
+
+      blockchain.addTransaction(tx);
+      blockchain.minePendingTransactions("no_addr");
+      assert.strict.equal(blockchain.getBalanceOfAddress(walletAddr), 80);
     });
   });
 
