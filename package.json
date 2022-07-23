@@ -10,7 +10,9 @@
   "main": "src/blockchain.js",
   "scripts": {
     "test": "nyc mocha tests/*.js",
-    "lint": "eslint src/** tests/**",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:eslint": "eslint src/** tests/**",
+    "lint:prettier": "prettier src/**/*.js",
     "coverage": "nyc --reporter=lcov npm run test"
   },
   "author": "Xavier Decuyper <hi@savjee.be>",
@@ -33,6 +35,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-standard": "^5.0.0",
     "mocha": "^9.2.0",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "prettier": "^2.7.1"
   }
 }
