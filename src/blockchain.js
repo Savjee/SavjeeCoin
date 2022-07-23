@@ -41,7 +41,7 @@ class Transaction {
     
 
     // Calculate the hash of this transaction, sign it with the key
-    // and store it inside the transaction obect
+    // and store it inside the transaction object
     const hashTx = this.calculateHash();
     const sig = signingKey.sign(hashTx, 'base64');
 
