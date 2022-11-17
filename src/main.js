@@ -18,21 +18,23 @@ const savjeeCoin = new Blockchain();
 savjeeCoin.minePendingTransactions(myWalletAddress);
 
 // Create a transaction & sign it with your key
-const tx1 = new Transaction(myWalletAddress, 'address2', 100);
-tx1.signTransaction(myKey);
-savjeeCoin.addTransaction(tx1);
+//const tx1 = new Transaction(myWalletAddress, 'address2', 100);
+//tx1.signTransaction(myKey);
+//savjeeCoin.addTransaction(tx1);
 
 // Mine block
-savjeeCoin.minePendingTransactions(myWalletAddress);
+//savjeeCoin.minePendingTransactions(myWalletAddress);
 
 // Create second transaction
-const tx2 = new Transaction(myWalletAddress, 'address1', 50);
-tx2.signTransaction(myKey);
-savjeeCoin.addTransaction(tx2);
+//const tx2 = new Transaction(myWalletAddress, 'address1', 50);
+//tx2.signTransaction(myKey);
+//savjeeCoin.addTransaction(tx2);
 
 // Mine block
-savjeeCoin.minePendingTransactions(myWalletAddress);
+//savjeeCoin.minePendingTransactions(myWalletAddress);
 
+console.log(savjeeCoin.getBalanceOfAddress('address2'));
+console.log(savjeeCoin.chain);
 console.log();
 console.log(
   `Balance of xavier is ${savjeeCoin.getBalanceOfAddress(myWalletAddress)}`
