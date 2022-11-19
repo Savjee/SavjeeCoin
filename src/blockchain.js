@@ -79,11 +79,13 @@ class Block {
    * @param {string} previousHash
    */
   constructor(timestamp, transactions, previousHash = '') {
-    this.previousHash = previousHash;
+    this.index=0;
     this.timestamp = timestamp;
-    this.transactions = transactions;
-    this.nonce = 0;
+    this.previousHash = previousHash;
     this.hash = this.calculateHash();
+    this.difficulty=0;
+    this.nonce = 0;
+    this.transactions = transactions;
   }
 
   /**
@@ -110,7 +112,9 @@ class Block {
    *
    * @param {number} difficulty
    */
-  mineBlock(difficulty) {
+  mineBlock(index,difficulty) {
+    this.index=index;
+    this.difficulty=difficulty;
     while (
       this.hash.substring(0, difficulty) !== Array(difficulty + 1).join('0')
     ) {
@@ -119,7 +123,14 @@ class Block {
     }
 
     debug(`Block mined: ${this.hash}`);
+    this.end=Date.now()
   }
+
+  returnTimeStamp(){
+    return this.timestamp()
+  }
+
+
 
   /**
    * Validates all the transactions inside this block (signature + hash) and
@@ -144,14 +155,17 @@ class Blockchain {
     this.difficulty = 2;
     this.pendingTransactions = [];
     this.miningReward = 100;
+    this.accum = 0;
+    this.index = 0;
   }
 
   /**
    * @returns {Block}
    */
   createGenesisBlock() {
-    return new Block(Date.parse('2017-01-01'), [], '0');
+    return new Block(Date.now(), [], '0'); //parse('2022-01-01')
   }
+
 
   /**
    * Returns the latest block on our chain. Useful when you want to create a
@@ -163,6 +177,9 @@ class Blockchain {
     return this.chain[this.chain.length - 1];
   }
 
+  getTimeStamp(index){
+    return this.chain[index];
+  }
   /**
    * Takes all the pending transactions, puts them in a Block and starts the
    * mining process. It also adds a transaction to send the mining reward to
@@ -178,15 +195,26 @@ class Blockchain {
     );
     this.pendingTransactions.push(rewardTx);
 
+    this.index+=1;
+    
     const block = new Block(
       Date.now(),
       this.pendingTransactions,
       this.getLatestBlock().hash
     );
-    block.mineBlock(this.difficulty);
-
+    
+    block.mineBlock(this.index,this.difficulty);
+    
     debug('Block successfully mined!');
     this.chain.push(block);
+  
+    if (this.index>10) {
+        for (let i = this.index; i >= this.index-10; i--){
+          this.blockTime = this.chain[i].timestamp - this.chain[i-1].timestamp;
+          this.accum += this.blockTime;
+        }
+        this.difficulty=parseInt((this.difficulty * (10 * 0.03 * 1000)) / this.accum);
+    }
 
     this.pendingTransactions = [];
   }
