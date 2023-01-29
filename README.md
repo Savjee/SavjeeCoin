@@ -63,7 +63,7 @@ const myChain = new Blockchain();
 ```js
 // Transfer 100 coins from my wallet to "toAddress"
 const tx = new Transaction(myKey.getPublic('hex'), 'toAddress', 100);
-tx.signTransaction(myKey);
+tx.sign(myKey);
 
 myChain.addTransaction(tx);
 ```

@@ -1,15 +1,22 @@
 const assert = require('assert');
+const crypto = require('crypto');
+const EC = require('elliptic').ec;
+
 const { Transaction } = require('../src/blockchain');
-const { createSignedTx, signingKey } = require('./helpers');
-
-let txObject = null;
-
-beforeEach(function() {
-  txObject = new Transaction('fromAddress', 'toAddress', 9999);
-});
 
 describe('Transaction class', function() {
-  describe('Constructor', function() {
+  let txObject = null;
+  const signingKey = (new EC('secp256k1')).keyFromPrivate('some-private-key');
+  const fromAddress = signingKey.getPublic('hex');
+  const toAddress = signingKey.getPublic('hex');
+  const amount = 100;
+
+  beforeEach(function() {
+    txObject = new Transaction(fromAddress, toAddress, amount);
+    txObject.sign(signingKey)
+  });
+
+  describe('constructor', function() {  
     it('should automatically set the current date', function() {
       const actual = txObject.timestamp;
       const minTime = Date.now() - 1000;
@@ -18,87 +25,77 @@ describe('Transaction class', function() {
       assert(actual > minTime && actual < maxTime, 'Tx does not have a good timestamp');
     });
 
-
     it('should correctly save from, to and amount', function() {
-      txObject = new Transaction('a1', 'b1', 10);
-
-      assert.strict.equal(txObject.fromAddress, 'a1');
-      assert.strict.equal(txObject.toAddress, 'b1');
-      assert.strict.equal(txObject.amount, 10);
+      assert.strict.equal(txObject.fromAddress, fromAddress);
+      assert.strict.equal(txObject.toAddress, toAddress);
+      assert.strict.equal(txObject.amount, amount);
     });
   });
 
-  describe('Calculate hash', function() {
-    it('should correct calculate the SHA256', function() {
-      txObject = new Transaction('a1', 'b1', 10);
-      txObject.timestamp = 1;
+  describe('calculateHash', function() {
+    it('should correctly calculate the SHA256 hash', function() {
+      const expectedHash = crypto.createHash('sha256').update(txObject.fromAddress + txObject.toAddress + txObject.amount + txObject.timestamp).digest('hex')
 
       assert.strict.equal(
         txObject.calculateHash(),
-
-        // Output of SHA256(a1b1101)
-        '21894bb7b0e56aab9eb48d4402d94628a9a179bc277542a5703f417900275153'
+        expectedHash
       );
     });
 
-    it('should change when we tamper with the tx', function() {
-      txObject = new Transaction('a1', 'b1', 10);
-
-      const originalHash = txObject.calculateHash();
-      txObject.amount = 100;
+    it('should output a different hash if data is tampered in the transaction', function() {
+      // Tamper the amount making the hash different
+      txObject.amount = 50;
 
       assert.strict.notEqual(
         txObject.calculateHash(),
-        originalHash
+        txObject.hash
       );
     });
   });
 
-  describe('isValid', function() {
-    it('should throw error without signature', function() {
-      assert.throws(() => { txObject.isValid(); }, Error);
-    });
-
+  describe('sign', function() {
     it('should correctly sign transactions', function() {
-      txObject = createSignedTx();
+      const hashTx = txObject.calculateHash();
+      const sig = signingKey.sign(hashTx, 'base64');
+      const expectedSignature = sig.toDER('hex');
 
       assert.strict.equal(
         txObject.signature,
-        '3044022023fb1d818a0888f7563e1a3ccdd68b28e23070d6c0c1c5' +
-'004721ee1013f1d769022037da026cda35f95ef1ee5ced5b9f7d70' +
-'e102fcf841e6240950c61e8f9b6ef9f8'
+        expectedSignature
       );
     });
 
-    it('should not sign transactions for other wallets', function() {
-      txObject = new Transaction('not a correct wallet key', 'wallet2', 10);
-      txObject.timestamp = 1;
+    it('should not sign transactions with fromAddresses that does not belogs to the private key', function() {
+      txObject.fromAddress = 'some-other-address'
 
       assert.throws(() => {
-        txObject.signTransaction(signingKey);
+        txObject.sign(signingKey);
       }, Error);
     });
+  })
 
-    it('should detect badly signed transactions', function() {
-      txObject = createSignedTx();
-
-      // Tamper with it & it should be invalid!
-      txObject.amount = 100;
-      assert(!txObject.isValid());
-    });
-
-    it('should return true with correctly signed tx', function() {
-      txObject = createSignedTx();
+  describe('isValid', function() {
+    it('should return true for mining reward transactions', function() {
+      txObject.fromAddress = null;
       assert(txObject.isValid());
     });
 
-    it('should fail when signature is empty string', function() {
+    it('should throw error if signature is invalid', function() {
+      delete txObject.signature;
+      assert.throws(() => { txObject.isValid(); }, Error);
+
       txObject.signature = '';
       assert.throws(() => { txObject.isValid(); }, Error);
     });
 
-    it('should return true for mining rewards', function() {
-      txObject.fromAddress = null;
+    it('should return false for badly signed transactions', function() {
+      // Tamper the amount making the signature invalid
+      txObject.amount = 50;
+
+      assert(!txObject.isValid());
+    });
+
+    it('should return true for correctly signed tx', function() {
       assert(txObject.isValid());
     });
   });

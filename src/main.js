@@ -19,7 +19,7 @@ savjeeCoin.minePendingTransactions(myWalletAddress);
 
 // Create a transaction & sign it with your key
 const tx1 = new Transaction(myWalletAddress, 'address2', 100);
-tx1.signTransaction(myKey);
+tx1.sign(myKey);
 savjeeCoin.addTransaction(tx1);
 
 // Mine block
@@ -27,7 +27,7 @@ savjeeCoin.minePendingTransactions(myWalletAddress);
 
 // Create second transaction
 const tx2 = new Transaction(myWalletAddress, 'address1', 50);
-tx2.signTransaction(myKey);
+tx2.sign(myKey);
 savjeeCoin.addTransaction(tx2);
 
 // Mine block
