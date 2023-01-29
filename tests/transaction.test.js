@@ -13,10 +13,10 @@ describe('Transaction class', function() {
 
   beforeEach(function() {
     txObject = new Transaction(fromAddress, toAddress, amount);
-    txObject.sign(signingKey)
+    txObject.sign(signingKey);
   });
 
-  describe('constructor', function() {  
+  describe('constructor', function() {
     it('should automatically set the current date', function() {
       const actual = txObject.timestamp;
       const minTime = Date.now() - 1000;
@@ -34,7 +34,7 @@ describe('Transaction class', function() {
 
   describe('calculateHash', function() {
     it('should correctly calculate the SHA256 hash', function() {
-      const expectedHash = crypto.createHash('sha256').update(txObject.fromAddress + txObject.toAddress + txObject.amount + txObject.timestamp).digest('hex')
+      const expectedHash = crypto.createHash('sha256').update(txObject.fromAddress + txObject.toAddress + txObject.amount + txObject.timestamp).digest('hex');
 
       assert.strict.equal(
         txObject.calculateHash(),
@@ -66,13 +66,13 @@ describe('Transaction class', function() {
     });
 
     it('should not sign transactions with fromAddresses that does not belogs to the private key', function() {
-      txObject.fromAddress = 'some-other-address'
+      txObject.fromAddress = 'some-other-address';
 
       assert.throws(() => {
         txObject.sign(signingKey);
       }, Error);
     });
-  })
+  });
 
   describe('isValid', function() {
     it('should return true for mining reward transactions', function() {
