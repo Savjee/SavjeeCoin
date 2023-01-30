@@ -1,5 +1,4 @@
 const assert = require('assert');
-const crypto = require('crypto');
 const EC = require('elliptic').ec;
 
 const { Transaction } = require('../src/blockchain');
@@ -13,11 +12,14 @@ describe('Transaction class', function() {
 
   beforeEach(function() {
     txObject = new Transaction(fromAddress, toAddress, amount);
+    txObject.timestamp = 1;
     txObject.sign(signingKey);
   });
 
   describe('constructor', function() {
     it('should automatically set the current date', function() {
+      txObject = new Transaction(fromAddress, toAddress, amount);
+      
       const actual = txObject.timestamp;
       const minTime = Date.now() - 1000;
       const maxTime = Date.now() + 1000;
@@ -34,11 +36,9 @@ describe('Transaction class', function() {
 
   describe('calculateHash', function() {
     it('should correctly calculate the SHA256 hash', function() {
-      const expectedHash = crypto.createHash('sha256').update(txObject.fromAddress + txObject.toAddress + txObject.amount + txObject.timestamp).digest('hex');
-
       assert.strict.equal(
         txObject.calculateHash(),
-        expectedHash
+        '8e8e081788cba59d0e11fc881dab1f7fbe7eb3dd4f7db9d6382c892588cc912a'
       );
     });
 
@@ -55,13 +55,10 @@ describe('Transaction class', function() {
 
   describe('sign', function() {
     it('should correctly sign transactions', function() {
-      const hashTx = txObject.calculateHash();
-      const sig = signingKey.sign(hashTx, 'base64');
-      const expectedSignature = sig.toDER('hex');
-
       assert.strict.equal(
         txObject.signature,
-        expectedSignature
+        '3046022100b2e5ee31c4ebea01125c73c8ef031b35e23f58f363a2ba732860f512ad99b1' +
+        '0b022100b89da6fff470eac3d085276dd7ce079e6d0b049181226eaf45ab0b43ecc6a0fd'
       );
     });
 
