@@ -1,25 +1,20 @@
 const assert = require('assert');
-const EC = require('elliptic').ec;
 
 const { Transaction } = require('../src/blockchain');
+const { createSignedTx, signingKey } = require('./helpers');
 
 describe('Transaction class', function() {
   let txObject = null;
-  const signingKey = (new EC('secp256k1')).keyFromPrivate('some-private-key');
-  const fromAddress = signingKey.getPublic('hex');
-  const toAddress = signingKey.getPublic('hex');
+  const fromAddress = 'fromAddress';
+  const toAddress = 'toAddress';
   const amount = 100;
 
   beforeEach(function() {
     txObject = new Transaction(fromAddress, toAddress, amount);
-    txObject.timestamp = 1;
-    txObject.sign(signingKey);
   });
 
   describe('constructor', function() {
     it('should automatically set the current date', function() {
-      txObject = new Transaction(fromAddress, toAddress, amount);
-      
       const actual = txObject.timestamp;
       const minTime = Date.now() - 1000;
       const maxTime = Date.now() + 1000;
@@ -36,9 +31,11 @@ describe('Transaction class', function() {
 
   describe('calculateHash', function() {
     it('should correctly calculate the SHA256 hash', function() {
+      txObject.timestamp = 1;
+
       assert.strict.equal(
         txObject.calculateHash(),
-        '8e8e081788cba59d0e11fc881dab1f7fbe7eb3dd4f7db9d6382c892588cc912a'
+        '4be9c20f87f7baac191aa246a33b5d44af1f96f23598ac06e5f71ee222f40abf'
       );
     });
 
@@ -55,10 +52,12 @@ describe('Transaction class', function() {
 
   describe('sign', function() {
     it('should correctly sign transactions', function() {
+      txObject = createSignedTx();
+
       assert.strict.equal(
         txObject.signature,
-        '3046022100b2e5ee31c4ebea01125c73c8ef031b35e23f58f363a2ba732860f512ad99b1' +
-        '0b022100b89da6fff470eac3d085276dd7ce079e6d0b049181226eaf45ab0b43ecc6a0fd'
+        '3044022023fb1d818a0888f7563e1a3ccdd68b28e23070d6c0c1c5004721ee1013f1d7' +
+        '69022037da026cda35f95ef1ee5ced5b9f7d70e102fcf841e6240950c61e8f9b6ef9f8'
       );
     });
 
@@ -86,6 +85,8 @@ describe('Transaction class', function() {
     });
 
     it('should return false for badly signed transactions', function() {
+      txObject = createSignedTx(10);
+
       // Tamper the amount making the signature invalid
       txObject.amount = 50;
 
@@ -93,6 +94,7 @@ describe('Transaction class', function() {
     });
 
     it('should return true for correctly signed tx', function() {
+      txObject = createSignedTx(10);
       assert(txObject.isValid());
     });
   });
