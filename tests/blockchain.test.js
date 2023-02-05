@@ -94,7 +94,7 @@ describe('Blockchain class', function() {
       // Create new transaction to self
       const tx = new Transaction(walletAddr, walletAddr, 80);
       tx.timestamp = 1;
-      tx.signTransaction(signingKey);
+      tx.sign(signingKey);
 
       blockchain.addTransaction(tx);
       blockchain.minePendingTransactions('no_addr');

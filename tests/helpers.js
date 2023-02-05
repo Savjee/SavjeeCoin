@@ -6,7 +6,7 @@ const signingKey = ec.keyFromPrivate('3d6f54430830d388052865b95c10b4aeb1bbe33c01
 function createSignedTx(amount = 10) {
   const txObject = new Transaction(signingKey.getPublic('hex'), 'wallet2', amount);
   txObject.timestamp = 1;
-  txObject.signTransaction(signingKey);
+  txObject.sign(signingKey);
 
   return txObject;
 }
@@ -23,7 +23,7 @@ function createBlockchainWithTx() {
   blockchain.minePendingTransactions(signingKey.getPublic('hex'));
 
   const validTx = new Transaction(signingKey.getPublic('hex'), 'b2', 10);
-  validTx.signTransaction(signingKey);
+  validTx.sign(signingKey);
 
   blockchain.addTransaction(validTx);
   blockchain.addTransaction(validTx);

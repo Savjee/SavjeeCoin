@@ -36,7 +36,7 @@ class Transaction {
    *
    * @param {string} signingKey
    */
-  signTransaction(signingKey) {
+  sign(signingKey) {
     // You can only send a transaction from the wallet that is linked to your
     // key. So here we check if the fromAddress matches your publicKey
     if (signingKey.getPublic('hex') !== this.fromAddress) {
